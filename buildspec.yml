@@ -12,9 +12,10 @@ phases:
       - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
   build:
     commands:
+      - docker
       - echo Build started on `date`
       - echo Building the Docker image...
-      - sudo usermod -aG docker $USER
+      - usermod -aG docker $USER
       - docker --version
       - docker build -t $REPOSITORY_URI:latest .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
